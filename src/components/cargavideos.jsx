@@ -80,7 +80,7 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
               onClick={() => playVideo(pkP.id)}
             >
               <source
-                src={pkP.uploadedFile}
+                src={`https://backend-example-n2i3.onrender.com${pkP.uploadedFile}`}
                 type="video/mp4"
               />
               Tu navegador no soporta el tag de video.

@@ -43,7 +43,7 @@
 
     const handleCerrarSesion = async () => {
       try {
-        const endpoint = "http://127.0.0.1:8000/api/logout/";
+        const endpoint = "https://backend-example-n2i3.onrender.com/api/logout/";
         await axios.post(endpoint);
     
         // Elimina solo la clave relacionada con la sesión

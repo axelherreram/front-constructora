@@ -39,7 +39,7 @@ const Login = ({ setLoggedIn }) => {
       // Actualizar el estado de autenticación aquí
       setLoggedIn(true);
 
-      const response = await axios.post("http://127.0.0.1:8000/api/login/", {
+      const response = await axios.post("https://backend-example-n2i3.onrender.com/api/login/", {
         username: username,
         password: password,
       });

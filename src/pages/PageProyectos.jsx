@@ -132,7 +132,7 @@ const PageProyectos = (props) => {
           const errorResponse = response.data;
           console.log(errorResponse.nog)
           if (errorResponse && errorResponse.nog && Array.isArray(errorResponse.nog)) {
-            setNogProyecto(errorResponse.nog[1]);
+            setErrorArchivo("Nog Vacío");
           } 
           
         } else {
@@ -144,7 +144,7 @@ const PageProyectos = (props) => {
       }
     } catch (error) {
       console.error("Error en la solicitud POST:", error.message);
-      setNogProyecto("ocurrio un error, intentar de nuevo");
+      setErrorArchivo("ocurrio un error, intentar de nuevo");
     }
   };
   

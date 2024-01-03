@@ -78,7 +78,7 @@ const ComponenteB = ({ proyectoID, updateCounter, role }) => {
         proyectos.map((pkP) => (
           <div key={pkP.id} className="card" style={{ position: "relative" }}>
             <img
-              src={`'https://backend-example-n2i3.onrender.com/${pkP.uploadedFile}'`}
+              src={`https://backend-example-n2i3.onrender.com/${pkP.uploadedFile}'`}
               alt={pkP.name}
               onClick={() => openModal(pkP.uploadedFile, pkP.name)}
             />

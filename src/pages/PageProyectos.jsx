@@ -105,6 +105,7 @@ const PageProyectos = (props) => {
         date: fechaProyecto,
         munici_id: Muni_id,
       });
+      console.log("Respuesta completa del servidor:", response);
 
       if (response.status === 201) {
         console.log("Proyecto creado exitosamente");
@@ -124,7 +125,6 @@ const PageProyectos = (props) => {
         setFechaProyecto("");
         setShowModal(false);
       } else {
-      console.log("Respuesta completa del servidor:", response);
 
         // Manejar el error 400
         if (response.status === 400) {

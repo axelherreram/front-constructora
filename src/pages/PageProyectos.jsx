@@ -43,7 +43,7 @@ const PageProyectos = (props) => {
 
   const fetchProyectos = async () => {
     try {
-      const endPoint = "http://localhost:8000/api/municipalidadf/" + Muni_id;
+      const endPoint = "https://backend-example-n2i3.onrender.com/api/municipalidadesf" + Muni_id;
       const response = await axios.get(endPoint);
       setProyectos(response.data);
     } catch (error) {
@@ -57,7 +57,7 @@ const PageProyectos = (props) => {
 
   const handleCerrarSesion = async () => {
     try {
-      const endpoint = "http://127.0.0.1:8000/api/logout/";
+      const endpoint = "https://backend-example-n2i3.onrender.com/api/logout/";
       await axios.post(endpoint);
   
       // Elimina solo la clave relacionada con la sesión
@@ -81,36 +81,43 @@ const PageProyectos = (props) => {
         setErrorArchivo("Nombre Proyecto Vacío");
         return;
       }
-
+  
       if (!nogProyecto) {
         setErrorArchivo("Nog Vacío");
         return;
       }
-
+  
       if (!fechaProyecto) {
         setErrorArchivo("No ha ingresado fecha");
         return;
       }
-
-      const endpoint = "http://127.0.0.1:8000/api/v1/projects/";
+  
+      const endpoint = "https://backend-example-n2i3.onrender.com/api/v1/projects/";
+  
+      // Verificar si el nog ya existe
+      const nogExistsResponse = await axios.get(`${endpoint}?nog=${nogProyecto}`);
+      if (nogExistsResponse.data.length > 0) {
+        setErrorArchivo("Error: Nog ya existe");
+        return;
+      }
+  
+      // Si el nog no existe, continuar con la creación del proyecto
       const response = await axios.post(endpoint, {
         name: nombreProyecto,
         nog: nogProyecto,
         date: fechaProyecto,
         munici_id: Muni_id,
       });
-
+  
       if (response.status === 201) {
         console.log("Proyecto creado exitosamente");
         setShowSuccessMessage(true);
         setProyectos((prevProyectos) => {
-          const newArray = Array.isArray(prevProyectos)
-            ? [...prevProyectos]
-            : [];
+          const newArray = Array.isArray(prevProyectos) ? [...prevProyectos] : [];
           newArray.push(response.data);
           return newArray;
         });
-
+  
         // Limpiar mensajes de error y campos
         setErrorArchivo("");
         setNombreProyecto("");
@@ -127,11 +134,12 @@ const PageProyectos = (props) => {
       console.error("Error en la solicitud POST:", error.message);
     }
   };
+  
 
   const handleDelete = async (proyectoId) => {
     try {
       const response = await axios.delete(
-        `http://127.0.0.1:8000/api/v1/projects/${proyectoId}/`
+        `https://backend-example-n2i3.onrender.com/api/v1/projects/${proyectoId}/`
       );
 
       if (response.status === 204) {

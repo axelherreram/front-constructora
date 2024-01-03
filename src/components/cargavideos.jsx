@@ -13,7 +13,7 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
 
   const fetchProyectos = async () => {
     try {
-      const archivosEndpoint = `http://localhost:8000/api/proyectosfv/${proyectoID}`;
+      const archivosEndpoint = `https://backend-example-n2i3.onrender.com/api/proyectosfv/${proyectoID}`;
       const archivosResponse = await axios.get(archivosEndpoint);
       const archivos = archivosResponse.data;
 
@@ -30,7 +30,7 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/videos/${id}/`);
+      await axios.delete(`https://backend-example-n2i3.onrender.com/api/v1/videos/${id}/`);
       setSelectedVideoId(id); // Almacena la ID del video eliminado
       setShowDialog(true);
       setProyectos((prevProyectos) =>
@@ -80,7 +80,7 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
               onClick={() => playVideo(pkP.id)}
             >
               <source
-                src={`http://localhost:8000/${pkP.uploadedFile}`}
+                src={pkP.uploadedFile}
                 type="video/mp4"
               />
               Tu navegador no soporta el tag de video.

@@ -21,7 +21,7 @@ const ComponenteB = ({ proyectoID, updateCounter, role }) => {
 
   const fetchProyectos = async () => {
     try {
-      const archivosEndpoint = `http://localhost:8000/api/proyectosfp/${proyectoID}`;
+      const archivosEndpoint = `https://backend-example-n2i3.onrender.com/api/proyectosfp/${proyectoID}`;
       const archivosResponse = await axios.get(archivosEndpoint);
       const archivos = archivosResponse.data;
       if (Array.isArray(archivos)) {
@@ -39,7 +39,7 @@ const ComponenteB = ({ proyectoID, updateCounter, role }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/photos/${id}/`);
+      await axios.delete(`https://backend-example-n2i3.onrender.com/api/v1/photos/${id}/`);
       console.log(`Foto con ID ${id} eliminada exitosamente.`);
       setSelectedImage(null); // Cerrar el modal de imagen
       setSelectedImgID(id);
@@ -78,7 +78,7 @@ const ComponenteB = ({ proyectoID, updateCounter, role }) => {
         proyectos.map((pkP) => (
           <div key={pkP.id} className="card" style={{ position: "relative" }}>
             <img
-              src={`http://localhost:8000/${pkP.uploadedFile}`}
+              src={pkP.uploadedFile}
               alt={pkP.name}
               onClick={() => openModal(pkP.uploadedFile, pkP.name)}
             />

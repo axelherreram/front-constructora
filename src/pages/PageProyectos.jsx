@@ -81,17 +81,25 @@ const PageProyectos = (props) => {
         setErrorArchivo("Nombre Proyecto Vacío");
         return;
       }
-
+  
       if (!nogProyecto) {
         setErrorArchivo("Nog Vacío");
         return;
       }
-
+  
       if (!fechaProyecto) {
         setErrorArchivo("No ha ingresado fecha");
         return;
       }
-
+  
+      // Verificar si el nog ya existe
+      const nogExistente = await verificarProyectoExistente("nog", nogProyecto);
+      if (nogExistente) {
+        setErrorArchivo("Error: Nog ya Existe");
+        return;
+      }
+  
+      // Si no existe un proyecto con el mismo nog, continuar con la creación
       const endpoint = "https://backend-example-n2i3.onrender.com/api/v1/projects/";
       const response = await axios.post(endpoint, {
         name: nombreProyecto,
@@ -99,7 +107,7 @@ const PageProyectos = (props) => {
         date: fechaProyecto,
         munici_id: Muni_id,
       });
-
+  
       if (response.status === 201) {
         console.log("Proyecto creado exitosamente");
         setShowSuccessMessage(true);
@@ -110,7 +118,7 @@ const PageProyectos = (props) => {
           newArray.push(response.data);
           return newArray;
         });
-
+  
         // Limpiar mensajes de error y campos
         setErrorArchivo("");
         setNombreProyecto("");
@@ -125,6 +133,18 @@ const PageProyectos = (props) => {
       }
     } catch (error) {
       console.error("Error en la solicitud POST:", error.message);
+    }
+  };
+  
+  const verificarProyectoExistente = async (tipo, valor) => {
+    try {
+      const endpoint = `https://backend-example-n2i3.onrender.com/api/v1/projects/?${tipo}=${valor}`;
+      const response = await axios.get(endpoint);
+  
+      return response.data.length > 0;
+    } catch (error) {
+      console.error("Error al verificar existencia del proyecto:", error.message);
+      return false;
     }
   };
   

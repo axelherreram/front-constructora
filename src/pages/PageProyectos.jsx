@@ -127,17 +127,14 @@ const PageProyectos = (props) => {
         // Manejar el error 400
         if (response.status === 400) {
           const errorResponse = response.data;
-
-          // Verificar si la respuesta contiene la propiedad "nog" con un array de mensajes de error
+          console.log("Respuesta completa del servidor:", response);
           if (
             errorResponse &&
             errorResponse.nog &&
             Array.isArray(errorResponse.nog)
           ) {
-            // Mostrar el primer mensaje de error (puedes ajustar según tus necesidades)
             setErrorArchivo(errorResponse.nog[0]);
           } else {
-            // Si no hay propiedad "nog" o no es un array, muestra un mensaje de error genérico
             console.error(
               "Error al crear el proyecto. Estado de la respuesta:",
               response.status,

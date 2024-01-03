@@ -256,10 +256,10 @@ const PageFYV = (props) => {
             {error && <p className="error-message">{error}</p>}
             {isLoading && (
               <div className="loading-container">
-                <div className="spinner-border" role="status">
+                <div className="spinner-border text-primary" role="status">
                   <span className="visually-hidden">Loading...</span>
                 </div>
-                <p className="loading-text">Cargando...</p>
+                <p className="loading-text">Subiendo...</p>
               </div>
             )}
           </div>

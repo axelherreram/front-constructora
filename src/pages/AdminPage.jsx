@@ -302,13 +302,12 @@ const AdminPage = () => {
                       className="municipalidad-card border"
                       style={{ position: "relative" }}
                     >
-                      {console.log(muni.uploadedFile)}
                       <img
                         className="img"
                         src={muni.uploadedFile}
                         alt="img_muni"
                       />
-F                      <p style={{ margin: "0px" }}>{muni.name}</p>
+                      <p style={{ margin: "0px" }}>{muni.name}</p>
                       <Dropdown className="Dropdown-muni">
                         <Dropdown.Toggle
                           className="btn-sm dropdown-toggle"

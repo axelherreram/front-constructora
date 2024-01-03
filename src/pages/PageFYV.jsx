@@ -64,9 +64,9 @@
   
         
         if (tipoArchivo === "Fotos") {
-          endpoint = "http://127.0.0.1:8000/api/v1/photos/";
+          endpoint = "https://backend-example-n2i3.onrender.com/api/v1/photos/";
         } else if (tipoArchivo === "Videos") {
-          endpoint = "http://127.0.0.1:8000/api/v1/videos/";
+          endpoint = "https://backend-example-n2i3.onrender.com/api/v1/videos/";
         }
   
         formData.append("project_id", proyectoID);

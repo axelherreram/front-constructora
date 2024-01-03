@@ -73,22 +73,6 @@ const PageProyectos = (props) => {
     }
   };
 
-
-  const verificarProyectoExistente = async (tipo, valor) => {
-    try {
-      const endpoint = "https://backend-example-n2i3.onrender.com/api/v1/projects/";
-      const response = await axios.get(endpoint, {
-        params: {
-          [tipo]: valor,
-        },
-      });
-  
-      return response.data.length > 0;
-    } catch (error) {
-      console.error("Error al verificar existencia del proyecto:", error.message);
-      return false;
-    }
-  };
   
   const handleGuardarProyecto = async () => {
     try {

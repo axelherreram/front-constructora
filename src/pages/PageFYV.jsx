@@ -72,6 +72,7 @@
         formData.append("project_id", proyectoID);
         formData.append("name", archivoProyecto.name);
         formData.append("uploadedFile", archivoProyecto);
+        console.log(formData);
   
         // Validar el tipo de archivo antes de realizar la solicitud POST
         if ((tipoArchivo === "Fotos" && isImageFile(archivoProyecto)) || (tipoArchivo === "Videos" && isVideoFile(archivoProyecto))) {

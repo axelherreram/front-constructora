@@ -1,0 +1,15 @@
+.success-message {
+    position: fixed;
+    bottom: 0;
+    right: 0; /* Cambia 'left' por 'right' para posicionarlo a la derecha */
+    margin: 0;
+    padding: 10px;
+    background-color: #4caf50; /* Color verde claro */
+    color: white; /* Texto en color blanco */
+    border-radius: 5px;
+    z-index: 1000; /* Ajusta el índice z según tus necesidades */
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  

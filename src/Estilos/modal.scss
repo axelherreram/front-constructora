@@ -1,0 +1,11 @@
+.modal-dialog {
+    color: #21201f;
+  }
+  
+  .custom-modal .modal-dialog {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-Width: "80%";
+     width: "auto"
+  }

@@ -1,0 +1,197 @@
+                                 // Estilos Para Panel Admin y User
+
+// Personaliza los colores del Navbar
+$color-bg: #1877f2;
+$color-text: #65676b;
+$color-link: green;
+$color-link-hover: black;
+
+                              // Estilos personalizados para el Navbar
+.navbar-custom {
+  background-color: $color-bg;
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-nav .nav-link {
+  color: $color-text;
+}
+
+.navbar-custom .navbar-nav .nav-link:hover {
+  color: $color-link-hover;
+}
+
+
+                                // Estilos para la imagen del logo
+.logoImage {
+  width: 90px; /* Ajusta el ancho según tus necesidades */
+  height: 40px; /* Ajusta la altura según tus necesidades */
+}
+
+                                //Estilos para la info empresa
+.content-pro{
+  padding: 1.4rem 1.4rem 0 1.4rem;
+}
+
+/* Estilos responsivos para el componente AdminPage */
+
+/* Estilos generales */
+.content-pro {
+  padding: 20px;
+  text-align: center;
+}
+
+.Titulo .tt-page {
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.municipalidades-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.municipalidad-card {
+  flex: 0 0 calc(25% - 20px); /* Ajusta según el número de columnas deseadas */
+  margin: 10px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+  background-color: #fff;
+}
+
+.municipalidad-card .img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.municipalidad-card p {
+  font-size: 18px;
+  margin: 0;
+}
+
+
+@media only screen and (max-width: 1200px) {
+ .municipalidad-card {
+    flex-basis: calc(38% - 20px); /* Dos columnas en pantallas medianas */
+  }
+}
+
+@media only screen and (max-width: 757px) {
+ .municipalidad-card {
+    flex-basis: calc(50% - 20px); /* Dos proyectos por línea en pantallas medianas */
+  }
+}
+/* Estilos adicionales para dispositivos pequeños (ajustar según sea necesario) */
+@media only screen and (max-width: 480px) {
+ .municipalidad-card {
+    flex-basis: calc(100% ); /* Un proyecto por línea en pantallas pequeñas */
+  }
+}
+
+
+.Datosesquina {
+  z-index: 300;
+  background: white;
+  font-size: .6rem;
+  padding: 10px;
+  border-radius: 10px;
+  position: fixed;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  color: black; /* Ajusta el color según tus necesidades */
+  text-align: right;
+  font-size: 12px; /* Ajusta el tamaño de la fuente según tus necesidades */
+}
+
+                                //Estilo para titulos
+.Titulo {
+  position: relative;
+  top: 0px;
+  margin: 10px;
+  color: black;
+  text-align: left;
+  font-size: 15px;
+  z-index: 1;
+  font-weight: 600;
+
+  @media (max-width: 768px) {
+    /* Estilos para pantallas más pequeñas */
+    top: 0px;
+    font-size: 15px;
+  }
+
+  @media (max-width: 576px) {
+    /* Estilos para pantallas aún más pequeñas */
+    top: 0px;
+    font-size: 15px;
+  }
+}
+
+                              // Estilos para el botón "Agregar Proyecto"
+.AgregarProyectoButton {
+  margin-left: 10px; // Ajusta el margen según tus necesidades
+  background-color: #f0f2f5; // Color de fondo del botón (verde)
+  border-color: black; // Color del borde del botón (verde)
+  color: black; // Color del texto del botón (blanco)
+  font-weight: 600;
+
+  &:hover {
+    background-color: #218838; // Color de fondo al pasar el ratón (verde oscuro)
+    border-color: #1e7e34; // Color del borde al pasar el ratón (verde más oscuro)
+  }
+}
+                                 // Estilos para el botón "Cerrar Sesión"
+.CerrarSesionButton {
+  margin-left: 10px; // Ajusta el margen según tus necesidades
+  background-color: #f0f2f5; // Color de fondo del botón (rojo)
+  border-color: black; // Color del borde del botón (rojo)
+  color: black; // Color del texto del botón (blanco)
+  font-weight: 600;
+
+  &:hover {
+    background-color: #c82333; // Color de fondo al pasar el ratón (rojo oscuro)
+    border-color: #bd2130; // Color del borde al pasar el ratón (rojo más oscuro)
+  }
+}
+
+
+.VentanaEmer1{
+  color: black;
+  margin-left: 130px;
+}
+.VentanaEmer{
+  color: black;
+}
+
+.error-message {
+  color: red;
+  font-weight: 600;
+  font-size: 17px;
+}
+
+
+.Dropdown-muni {
+  position: absolute;
+  margin: 10px;
+}
+
+.dropdown-toggle {
+  border: none;
+}
+
+.municipalidades-container .Dropdown-muni {
+  position: absolute;
+  bottom: 8px;
+  right: 30px;
+  margin: 10px;
+  width: 20px;
+}

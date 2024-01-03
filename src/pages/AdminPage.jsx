@@ -33,11 +33,7 @@ const AdminPage = () => {
   const [showDialog, setShowDialog] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
-<<<<<<< HEAD
-  const role_id_fija = 2;
-=======
   const role_id_fija = 3
->>>>>>> 9754c5df9fd62b7334f82b235182d4d85c8980e9
   const [mostrarContrasena, setMostrarContrasena] = useState(false);
   const [errorContrasena, setErrorContrasena] = useState("");
 

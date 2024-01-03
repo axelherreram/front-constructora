@@ -80,67 +80,74 @@ const PageProyectos = (props) => {
   };
 
   const handleGuardarProyecto = async () => {
-    // Validar campos
-    if (!nombreProyecto) {
-      setErrorArchivo("Nombre Proyecto Vacío");
-      return;
-    }
+    try {
+      // Validar campos
+      if (!nombreProyecto) {
+        setErrorArchivo("Nombre Proyecto Vacío");
+        return;
+      }
   
-    if (!nogProyecto) {
-      setErrorArchivo("Nog Vacío");
-      return;
-    }
+      if (!nogProyecto) {
+        setErrorArchivo("Nog Vacío");
+        return;
+      }
   
-    if (!fechaProyecto) {
-      setErrorArchivo("No ha ingresado fecha");
-      return;
-    }
+      if (!fechaProyecto) {
+        setErrorArchivo("No ha ingresado fecha");
+        return;
+      }
   
-    // Sin bloque try-catch
-    const endpoint = "https://backend-example-n2i3.onrender.com/api/v1/projects/";
-    const response = await axios.post(endpoint, {
-      name: nombreProyecto,
-      nog: nogProyecto,
-      date: fechaProyecto,
-      munici_id: Muni_id,
-    });
-  
-    console.log("Respuesta completa del servidor:", response.data);
-  
-    if (response.status === 201) {
-      console.log("Proyecto creado exitosamente");
-      setShowSuccessMessage(true);
-      setProyectos((prevProyectos) => {
-        const newArray = Array.isArray(prevProyectos)
-          ? [...prevProyectos]
-          : [];
-        newArray.push(response.data);
-        return newArray;
+      // Con bloque try-catch
+      const endpoint =
+        "https://backend-example-n2i3.onrender.com/api/v1/projects/";
+      const response = await axios.post(endpoint, {
+        name: nombreProyecto,
+        nog: nogProyecto,
+        date: fechaProyecto,
+        munici_id: Muni_id,
       });
   
-      // Limpiar mensajes de error y campos
-      setErrorArchivo("");
-      setNombreProyecto("");
-      setNogProyecto("");
-      setFechaProyecto("");
-      setShowModal(false);
-    } else {
-      // Manejar el error 400
-      if (response.status === 400) {
-        const errorResponse = response.data;
-        console.log(errorResponse.nog)
-        if (errorResponse && errorResponse.nog && Array.isArray(errorResponse.nog)) {
-          setErrorArchivo(errorResponse.nog[1]);
-        } 
-        
+      console.log("Respuesta completa del servidor:", response.data);
+  
+      if (response.status === 201) {
+        console.log("Proyecto creado exitosamente");
+        setShowSuccessMessage(true);
+        setProyectos((prevProyectos) => {
+          const newArray = Array.isArray(prevProyectos)
+            ? [...prevProyectos]
+            : [];
+          newArray.push(response.data);
+          return newArray;
+        });
+  
+        // Limpiar mensajes de error y campos
+        setErrorArchivo("");
+        setNombreProyecto("");
+        setNogProyecto("");
+        setFechaProyecto("");
+        setShowModal(false);
       } else {
-        console.error(
-          "Error al crear el proyecto. Estado de la respuesta:",
-          response.data.nog
-        );
+        // Manejar el error 400
+        if (response.status === 400) {
+          const errorResponse = response.data;
+          console.log(errorResponse.nog)
+          if (errorResponse && errorResponse.nog && Array.isArray(errorResponse.nog)) {
+            setNogProyecto(errorResponse.nog[1]);
+          } 
+          
+        } else {
+          console.error(
+            "Error al crear el proyecto. Estado de la respuesta:",
+            response.data.nog
+          );
+        }
       }
+    } catch (error) {
+      console.error("Error en la solicitud POST:", error.message);
+      setNogProyecto("ocurrio un error, intentar de nuevo");
     }
   };
+  
   
   const handleDelete = async (proyectoId) => {
     try {

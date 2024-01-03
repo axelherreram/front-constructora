@@ -136,7 +136,7 @@ const AdminPage = () => {
       }
     } catch (error) {
       console.error("Error en la solicitud POST:", error.message);
-      setErrorArchivo("Error en la solicitud POST");
+      setErrorArchivo("Error Al crear la Municipalidad");
     }
   };
   
@@ -200,7 +200,7 @@ const AdminPage = () => {
 
   const handleCerrarSesion = async () => {
     try {
-      const endpoint = "http://127.0.0.1:8000/api/logout/";
+      const endpoint = "https://backend-example-n2i3.onrender.com/api/logout/";
       await axios.post(endpoint);
 
       localStorage.removeItem("isLoggedIn");
@@ -282,15 +282,7 @@ const AdminPage = () => {
                       className="municipalidad-card border"
                       style={{ position: "relative" }}
                     >
-                      <img
-                        className="img"
-                        src={
-                          muni.uploadedFile === "http://localhost:8000/media/NULL"
-                            ? logo
-                            : muni.uploadedFile
-                        }
-                        alt="img_muni"
-                      />
+                     
                       <p style={{ margin: "0px" }}>{muni.name}</p>
                       <Dropdown className="Dropdown-muni">
                         <Dropdown.Toggle

@@ -190,17 +190,18 @@ $color-link-hover: black;
 
 
 
-
 /* Estilos CSS para centrar el spinner y bloquear las interacciones */
 .loading-container {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
   padding: 20px;
   text-align: center;
   z-index: 9999; /* Asegura que esté por encima del modal y otros elementos */
+  color: #fff; /* Color del texto en el centro del spinner */
+  border-radius: 10px;
 }
 
 .spinner-border {
@@ -212,4 +213,13 @@ $color-link-hover: black;
 
 .loading-text {
   margin-top: 10px;
+}
+
+/* Estilos adicionales para el modal */
+.modal-content {
+  background: none; /* Hace que el fondo del modal sea transparente para mostrar el fondo oscuro */
+}
+
+.modal-backdrop.show {
+  opacity: 0.5; /* Opacidad del fondo oscuro */
 }

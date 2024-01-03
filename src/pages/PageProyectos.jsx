@@ -105,6 +105,7 @@ const PageProyectos = (props) => {
         date: fechaProyecto,
         munici_id: Muni_id,
       });
+      console.log("Respuesta completa del servidor:", response);
 
       if (response.status === 201) {
         console.log("Proyecto creado exitosamente");
@@ -126,6 +127,7 @@ const PageProyectos = (props) => {
       } else {
         // Manejar el error 400
         if (response.status === 400) {
+
           const errorResponse = response.data;
           if (
             errorResponse &&
@@ -148,8 +150,6 @@ const PageProyectos = (props) => {
         }
       }
     } catch (error) {
-      console.log("Respuesta completa del servidor:", response);
-
       console.error("Error en la solicitud POST:", error.message);
     }
   };

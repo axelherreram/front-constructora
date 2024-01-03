@@ -132,7 +132,7 @@ const PageProyectos = (props) => {
           } else {
             console.error(
               "Error al crear el proyecto. Estado de la respuesta:",
-              response.statu,
+              response.status,
               response.data
             );
           }

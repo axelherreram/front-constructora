@@ -39,6 +39,10 @@ const PageProyectos = (props) => {
 
   const handleOpenModal = () => {
     setShowModal(true);
+    setErrorArchivo("");
+    setNombreProyecto("");
+    setNogProyecto("");
+    setFechaProyecto("");
   };
 
   const fetchProyectos = async () => {

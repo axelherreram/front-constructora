@@ -43,7 +43,7 @@ const PageProyectos = (props) => {
 
   const fetchProyectos = async () => {
     try {
-      const endPoint = "https://backend-example-n2i3.onrender.com/api/municipalidadesf" + Muni_id;
+      const endPoint = "https://backend-example-n2i3.onrender.com/api/municipalidadesf/" + Muni_id;
       const response = await axios.get(endPoint);
       setProyectos(response.data);
     } catch (error) {

@@ -47,7 +47,9 @@ const PageProyectos = (props) => {
 
   const fetchProyectos = async () => {
     try {
-      const endPoint = "https://backend-example-n2i3.onrender.com/api/municipalidadf/" + Muni_id;
+      const endPoint =
+        "https://backend-example-n2i3.onrender.com/api/municipalidadf/" +
+        Muni_id;
       const response = await axios.get(endPoint);
       setProyectos(response.data);
     } catch (error) {
@@ -63,10 +65,10 @@ const PageProyectos = (props) => {
     try {
       const endpoint = "https://backend-example-n2i3.onrender.com/api/logout/";
       await axios.post(endpoint);
-  
+
       // Elimina solo la clave relacionada con la sesión
       localStorage.removeItem("isLoggedIn");
-  
+
       // Espera un breve momento antes de redirigir
       setTimeout(() => {
         // Puedes ajustar la ruta según tus necesidades
@@ -77,7 +79,6 @@ const PageProyectos = (props) => {
     }
   };
 
-  
   const handleGuardarProyecto = async () => {
     try {
       // Validar campos
@@ -85,25 +86,26 @@ const PageProyectos = (props) => {
         setErrorArchivo("Nombre Proyecto Vacío");
         return;
       }
-  
+
       if (!nogProyecto) {
         setErrorArchivo("Nog Vacío");
         return;
       }
-  
+
       if (!fechaProyecto) {
         setErrorArchivo("No ha ingresado fecha");
         return;
       }
-  
-      const endpoint = "https://backend-example-n2i3.onrender.com/api/v1/projects/";
+
+      const endpoint =
+        "https://backend-example-n2i3.onrender.com/api/v1/projects/";
       const response = await axios.post(endpoint, {
         name: nombreProyecto,
         nog: nogProyecto,
         date: fechaProyecto,
         munici_id: Muni_id,
       });
-  
+
       if (response.status === 201) {
         console.log("Proyecto creado exitosamente");
         setShowSuccessMessage(true);
@@ -114,7 +116,7 @@ const PageProyectos = (props) => {
           newArray.push(response.data);
           return newArray;
         });
-  
+
         // Limpiar mensajes de error y campos
         setErrorArchivo("");
         setNombreProyecto("");
@@ -125,11 +127,17 @@ const PageProyectos = (props) => {
         // Manejar el error 400
         if (response.status === 400) {
           const errorResponse = response.data;
-  
-          // Verificar si el error es por un "Nog ya existente"
-          if (errorResponse && errorResponse.nog && errorResponse.nog.length > 0) {
+
+          // Verificar si la respuesta contiene la propiedad "nog" con un array de mensajes de error
+          if (
+            errorResponse &&
+            errorResponse.nog &&
+            Array.isArray(errorResponse.nog)
+          ) {
+            // Mostrar el primer mensaje de error (puedes ajustar según tus necesidades)
             setErrorArchivo(errorResponse.nog[0]);
           } else {
+            // Si no hay propiedad "nog" o no es un array, muestra un mensaje de error genérico
             console.error(
               "Error al crear el proyecto. Estado de la respuesta:",
               response.status,
@@ -146,8 +154,8 @@ const PageProyectos = (props) => {
     } catch (error) {
       console.error("Error en la solicitud POST:", error.message);
     }
-  };  
-  
+  };
+
   const handleDelete = async (proyectoId) => {
     try {
       const response = await axios.delete(
@@ -248,9 +256,7 @@ const PageProyectos = (props) => {
                     <p className="item-pro">Fecha: {proyecto.date}</p>
                   </div>
                   {role === "admin" && (
-                    <Dropdown 
-                    className="Dropdown-pro"
-                    >
+                    <Dropdown className="Dropdown-pro">
                       <Dropdown.Toggle
                         className="btn-sm dropdown-toggle"
                         variant="light"

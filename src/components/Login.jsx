@@ -44,8 +44,6 @@ const Login = ({ setLoggedIn }) => {
         password: password,
       });
 
-      console.log(username);
-      console.log(password);
       const userData = response.data;
 
       if (userData.role === "admin") {

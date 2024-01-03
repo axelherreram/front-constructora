@@ -81,17 +81,17 @@ const PageProyectos = (props) => {
         setErrorArchivo("Nombre Proyecto Vacío");
         return;
       }
-
+  
       if (!nogProyecto) {
         setErrorArchivo("Nog Vacío");
         return;
       }
-
+  
       if (!fechaProyecto) {
         setErrorArchivo("No ha ingresado fecha");
         return;
       }
-
+  
       const endpoint = "https://backend-example-n2i3.onrender.com/api/v1/projects/";
       const response = await axios.post(endpoint, {
         name: nombreProyecto,
@@ -99,7 +99,7 @@ const PageProyectos = (props) => {
         date: fechaProyecto,
         munici_id: Muni_id,
       });
-
+  
       if (response.status === 201) {
         console.log("Proyecto creado exitosamente");
         setShowSuccessMessage(true);
@@ -110,7 +110,7 @@ const PageProyectos = (props) => {
           newArray.push(response.data);
           return newArray;
         });
-
+  
         // Limpiar mensajes de error y campos
         setErrorArchivo("");
         setNombreProyecto("");
@@ -118,15 +118,30 @@ const PageProyectos = (props) => {
         setFechaProyecto("");
         setShowModal(false);
       } else {
-        console.error(
-          "Error al crear el proyecto. Estado de la respuesta:",
-          response.status
-        );
+        // Manejar el error 400
+        if (response.status === 400) {
+          const errorResponse = response.data;
+  
+          // Verificar si el error es por un "Nog ya existente"
+          if (errorResponse && errorResponse.error === "Nog ya existente") {
+            setErrorArchivo("Nog ya existente");
+          } else {
+            console.error(
+              "Error al crear el proyecto. Estado de la respuesta:",
+              response.status
+            );
+          }
+        } else {
+          console.error(
+            "Error al crear el proyecto. Estado de la respuesta:",
+            response.status
+          );
+        }
       }
     } catch (error) {
       console.error("Error en la solicitud POST:", error.message);
     }
-  };
+  };  
   
   const handleDelete = async (proyectoId) => {
     try {

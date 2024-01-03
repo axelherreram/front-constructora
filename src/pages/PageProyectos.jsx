@@ -127,7 +127,6 @@ const PageProyectos = (props) => {
         // Manejar el error 400
         if (response.status === 400) {
           const errorResponse = response.data;
-          console.log("Respuesta completa del servidor:", response);
           if (
             errorResponse &&
             errorResponse.nog &&
@@ -149,6 +148,8 @@ const PageProyectos = (props) => {
         }
       }
     } catch (error) {
+      console.log("Respuesta completa del servidor:", response);
+
       console.error("Error en la solicitud POST:", error.message);
     }
   };

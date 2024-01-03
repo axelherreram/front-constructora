@@ -187,3 +187,29 @@ $color-link-hover: black;
   font-weight: 600;
   font-size: 17px;
 }
+
+
+
+
+/* Estilos CSS para centrar el spinner y bloquear las interacciones */
+.loading-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  text-align: center;
+  z-index: 9999; /* Asegura que esté por encima del modal y otros elementos */
+}
+
+.spinner-border {
+  display: inline-block;
+  width: 3rem;
+  height: 3rem;
+  vertical-align: text-bottom;
+}
+
+.loading-text {
+  margin-top: 10px;
+}

@@ -215,10 +215,6 @@ $color-link-hover: black;
   margin-top: 10px;
 }
 
-/* Estilos adicionales para el modal */
-.modal-content {
-  background: none; /* Hace que el fondo del modal sea transparente para mostrar el fondo oscuro */
-}
 
 .modal-backdrop.show {
   opacity: 0.5; /* Opacidad del fondo oscuro */

@@ -105,7 +105,7 @@ const PageProyectos = (props) => {
       munici_id: Muni_id,
     });
   
-    console.log("Respuesta completa del servidor:", response);
+    console.log("Respuesta completa del servidor:", response.data);
   
     if (response.status === 201) {
       console.log("Proyecto creado exitosamente");
@@ -136,7 +136,7 @@ const PageProyectos = (props) => {
       } else {
         console.error(
           "Error al crear el proyecto. Estado de la respuesta:",
-          response.status
+          response.data.nog
         );
       }
     }

@@ -39,9 +39,7 @@ const ComponenteB = ({ proyectoID, updateCounter, role }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(
-        `https://backend-example-n2i3.onrender.com/api/v1/photos/${id}/`
-      );
+      await axios.delete(`https://backend-example-n2i3.onrender.com/api/v1/photos/${id}/`);
       console.log(`Foto con ID ${id} eliminada exitosamente.`);
       setSelectedImage(null); // Cerrar el modal de imagen
       setSelectedImgID(id);
@@ -124,7 +122,7 @@ const ComponenteB = ({ proyectoID, updateCounter, role }) => {
             {/* Agrega un contenedor con estilos para permitir el desplazamiento vertical */}
             <div style={{ overflowY: "auto", maxHeight: "70vh" }}>
               <img
-                src={`https://backend-example-n2i3.onrender.com${pkP.uploadedFile}`}
+                src={`https://backend-example-n2i3.onrender.com${selectedImage}`}
                 alt={`Imagen de ${selectedImage}`}
                 style={{ width: "100%", height: "auto" }}
               />

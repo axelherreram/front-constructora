@@ -136,6 +136,7 @@ const PageProyectos = (props) => {
             Array.isArray(errorResponse.nog)
           ) {
             setErrorArchivo(errorResponse.nog[0]);
+            return;
           } else {
             console.error(
               "Error al crear el proyecto. Estado de la respuesta:",

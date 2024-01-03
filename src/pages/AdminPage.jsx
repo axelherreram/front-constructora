@@ -33,7 +33,11 @@ const AdminPage = () => {
   const [showDialog, setShowDialog] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+<<<<<<< HEAD
   const role_id_fija = 2;
+=======
+  const role_id_fija = 3
+>>>>>>> 9754c5df9fd62b7334f82b235182d4d85c8980e9
   const [mostrarContrasena, setMostrarContrasena] = useState(false);
   const [errorContrasena, setErrorContrasena] = useState("");
 
@@ -140,7 +144,7 @@ const AdminPage = () => {
       }
     } catch (error) {
       console.error("Error en la solicitud POST:", error.message);
-      setErrorArchivo("Error en la solicitud POST");
+      setErrorArchivo("Error Al crear la Municipalidad");
     }
   };
 
@@ -173,7 +177,6 @@ const AdminPage = () => {
         munici_id: selectedMunicipioId,
         role_id: role_id_fija,
       };
-
       const response = await axios.post(endPoint, postData);
 
       if (response.status === 201) {
@@ -215,7 +218,7 @@ const AdminPage = () => {
 
   const handleCerrarSesion = async () => {
     try {
-      const endpoint = "http://127.0.0.1:8000/api/logout/";
+      const endpoint = "https://backend-example-n2i3.onrender.com/api/logout/";
       await axios.post(endpoint);
 
       localStorage.removeItem("isLoggedIn");
@@ -309,7 +312,7 @@ const AdminPage = () => {
                         src={muni.uploadedFile}
                         alt="img_muni"
                       />
-                      <p style={{ margin: "0px" }}>{muni.name}</p>
+F                      <p style={{ margin: "0px" }}>{muni.name}</p>
                       <Dropdown className="Dropdown-muni">
                         <Dropdown.Toggle
                           className="btn-sm dropdown-toggle"

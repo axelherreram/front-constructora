@@ -114,19 +114,12 @@ const PageProyectos = (props) => {
         setShowSuccessMessage(true);
         setProyectos((prevProyectos) => {
           const newArray = Array.isArray(prevProyectos) ? [...prevProyectos] : [];
-          
-          // Verificar si el proyecto ya existe antes de agregarlo
-          const existingProject = newArray.find(project => project.nog === nogProyecto);
-          if (!existingProject) {
-            newArray.push(response.data);
-          } else {
-            setErrorArchivo("Error: Nog ya existe");
-          }
-  
+          newArray.push(response.data);
           return newArray;
         });
   
         // Limpiar mensajes de error y campos
+        setErrorArchivo("");
         setNombreProyecto("");
         setNogProyecto("");
         setFechaProyecto("");
@@ -140,7 +133,9 @@ const PageProyectos = (props) => {
     } catch (error) {
       console.error("Error en la solicitud POST:", error.message);
     }
-  };  
+  };
+
+  
   
   const handleDelete = async (proyectoId) => {
     try {

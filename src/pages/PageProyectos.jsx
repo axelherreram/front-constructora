@@ -127,8 +127,8 @@ const PageProyectos = (props) => {
           const errorResponse = response.data;
   
           // Verificar si el error es por un "Nog ya existente"
-          if (errorResponse && errorResponse.error === "Nog ya existente") {
-            setErrorArchivo("Nog ya existente");
+          if (errorResponse && errorResponse.nog && errorResponse.nog.length > 0) {
+            setErrorArchivo(errorResponse.nog[0]);
           } else {
             console.error(
               "Error al crear el proyecto. Estado de la respuesta:",

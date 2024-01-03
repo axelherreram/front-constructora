@@ -128,16 +128,11 @@ const PageProyectos = (props) => {
       // Manejar el error 400
       if (response.status === 400) {
         const errorResponse = response.data;
-  
+        console.log(errorResponse.nog)
         if (errorResponse && errorResponse.nog && Array.isArray(errorResponse.nog)) {
-          setErrorArchivo(errorResponse.nog[0]);
-        } else {
-          console.error(
-            "Error al crear el proyecto. Estado de la respuesta:",
-            response.status,
-            response.data
-          );
-        }
+          setErrorArchivo(errorResponse.nog[1]);
+        } 
+        
       } else {
         console.error(
           "Error al crear el proyecto. Estado de la respuesta:",

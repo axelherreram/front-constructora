@@ -48,7 +48,7 @@ const PageProyectos = (props) => {
   const fetchProyectos = async () => {
     try {
       const endPoint =
-        "https://backend-example-n2i3.onrender.com/api/municipalidadf/" +
+        "https://backend-constructora.onrender.com/api/municipalidadf/" +
         Muni_id;
       const response = await axios.get(endPoint);
       setProyectos(response.data);
@@ -63,7 +63,7 @@ const PageProyectos = (props) => {
 
   const handleCerrarSesion = async () => {
     try {
-      const endpoint = "https://backend-example-n2i3.onrender.com/api/logout/";
+      const endpoint = "https://backend-constructora.onrender.com/api/logout/";
       await axios.post(endpoint);
 
       // Elimina solo la clave relacionada con la sesión
@@ -99,7 +99,7 @@ const PageProyectos = (props) => {
   
       // Con bloque try-catch
       const endpoint =
-        "https://backend-example-n2i3.onrender.com/api/v1/projects/";
+        "https://backend-constructora.onrender.com/api/v1/projects/";
       const response = await axios.post(endpoint, {
         name: nombreProyecto,
         nog: nogProyecto,
@@ -152,7 +152,7 @@ const PageProyectos = (props) => {
   const handleDelete = async (proyectoId) => {
     try {
       const response = await axios.delete(
-        `https://backend-example-n2i3.onrender.com/api/v1/projects/${proyectoId}/`
+        `https://backend-constructora.onrender.com/api/v1/projects/${proyectoId}/`
       );
 
       if (response.status === 204) {

@@ -44,7 +44,7 @@ const PageFYV = (props) => {
 
   const handleCerrarSesion = async () => {
     try {
-      const endpoint = "https://backend-example-n2i3.onrender.com/api/logout/";
+      const endpoint = "https://backend-constructora.onrender.com/api/logout/";
       await axios.post(endpoint);
 
       // Elimina solo la clave relacionada con la sesión
@@ -63,9 +63,9 @@ const PageFYV = (props) => {
       let formData = new FormData();
 
       if (tipoArchivo === "Fotos") {
-        endpoint = "https://backend-example-n2i3.onrender.com/api/v1/photos/";
+        endpoint = "https://backend-constructora.onrender.com/api/v1/photos/";
       } else if (tipoArchivo === "Videos") {
-        endpoint = "https://backend-example-n2i3.onrender.com/api/v1/videos/";
+        endpoint = "https://backend-constructora.onrender.com/api/v1/videos/";
       }
 
       formData.append("project_id", proyectoID);

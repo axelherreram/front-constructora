@@ -44,7 +44,7 @@ const AdminPage = () => {
     const fetchMunicipalidades = async () => {
       try {
         const endPoint =
-          "https://backend-example-n2i3.onrender.com/api/v1/municipalidades/";
+          "https://backend-constructora.onrender.com/api/v1/municipalidades/";
         const response = await axios.get(endPoint);
         setMunicipalidades(response.data);
       } catch (error) {
@@ -116,7 +116,7 @@ const AdminPage = () => {
       formData.append("uploadedFile", archivoProyecto);
 
       const endPoint =
-        "https://backend-example-n2i3.onrender.com/api/v1/municipalidades/";
+        "https://backend-constructora.onrender.com/api/v1/municipalidades/";
       const response = await axios.post(endPoint, formData);
 
       if (response.status === 201) {
@@ -165,7 +165,7 @@ const AdminPage = () => {
       }
 
       const endPoint =
-        "https://backend-example-n2i3.onrender.com/api/register/";
+        "https://backend-constructora.onrender.com/api/register/";
 
       const postData = {
         username: nombreUsuario,
@@ -214,7 +214,7 @@ const AdminPage = () => {
 
   const handleCerrarSesion = async () => {
     try {
-      const endpoint = "https://backend-example-n2i3.onrender.com/api/logout/";
+      const endpoint = "https://backend-constructora.onrender.com/api/logout/";
       await axios.post(endpoint);
 
       localStorage.removeItem("isLoggedIn");
@@ -227,7 +227,7 @@ const AdminPage = () => {
   const handleDelete = async (municipioId) => {
     try {
       const response = await axios.delete(
-        `https://backend-example-n2i3.onrender.com/api/v1/municipalidades/${municipioId}/`
+        `https://backend-constructora.onrender.com/api/v1/municipalidades/${municipioId}/`
       );
 
       if (response.status === 204) {

@@ -27,6 +27,7 @@ const PageFYV = (props) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     document.title = `Proyectos en ${municipio}`;
@@ -59,6 +60,8 @@ const PageFYV = (props) => {
 
   const handleGuardarArchivo = async () => {
     try {
+      setLoading(true);
+
       let endpoint = "";
       let formData = new FormData();
 
@@ -112,6 +115,7 @@ const PageFYV = (props) => {
       console.error(`Error en la solicitud POST:`, error.message);
       setError("Formato Inválido ");
     } finally {
+      setLoading(false);
       setIsLoading(false);
       setTipoProyecto(tipoArchivo);
       setArchivoProyecto(null);
@@ -265,11 +269,11 @@ const PageFYV = (props) => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
+          <Button variant="secondary" onClick={handleCloseModal} disabled={loading}>
             Cerrar
           </Button>
-          <Button variant="primary" onClick={handleGuardarArchivo}>
-            Guardar
+          <Button variant="primary" onClick={handleGuardarArchivo} disabled={loading}>
+          {loading ? "Subiendo..." : "Guardar"}
           </Button>
         </Modal.Footer>
       </Modal>

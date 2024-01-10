@@ -3,7 +3,7 @@ import axios from "axios";
 import Dropdown from "react-bootstrap/Dropdown";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import info from "../assets/info.svg";
+import info from "../assets/info-circle.svg";
 import DialogModal from "./msgExito";
 
 const ComponenteA = ({ proyectoID, updateCounter1, role }) => {

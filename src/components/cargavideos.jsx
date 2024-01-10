@@ -3,6 +3,7 @@ import axios from "axios";
 import Dropdown from "react-bootstrap/Dropdown";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import icon from "../assets/icon.svg";
 import info from "../assets/info-circle.svg";
 import DialogModal from "./msgExito";
 
@@ -98,7 +99,7 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
                   id="dropdown-basic"
                 >
                   <img
-                    src={info}
+                    src={icon}
                     alt="Icon"
                     style={{ width: "25px", height: "25px" }}
                   />
@@ -132,7 +133,7 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
                   right: "293px",
                 }}
                 onClick={(e) => {
-                  e.stopPropagation();
+                  e.stopPropagation(); // Evitar que el clic en el ícono cierre el tooltip
                   toggleTooltip(pkP.id);
                 }}
               />

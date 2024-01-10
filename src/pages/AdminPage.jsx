@@ -144,6 +144,7 @@ const AdminPage = () => {
     } catch (error) {
       console.error("Error en la solicitud POST:", error.message);
       setErrorArchivo("Error Al crear la Municipalidad");
+      setLoading(false);
     }
   };
 
@@ -198,6 +199,7 @@ const AdminPage = () => {
         );
       }
     } catch (error) {
+      setLoading(false);
       if (
         error.response &&
         error.response.status === 400 &&
@@ -213,6 +215,7 @@ const AdminPage = () => {
         }
       } else {
         setErrorArchivouser(`Error en la solicitud POST: ${error.message}`);
+        setLoading(false);
       }
     }
   };

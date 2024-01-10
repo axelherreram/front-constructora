@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Dropdown from "react-bootstrap/Dropdown";
-import icon from "../assets/icon.svg";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import info from "../assets/info.svg";
 import DialogModal from "./msgExito";
 
 const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
@@ -9,7 +11,8 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
   const [showDialog, setShowDialog] = useState(false);
   const [selectedVideoId, setSelectedVideoId] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const videoRef = useRef(null); // Referencia al elemento de video
+  const [tooltipVisible, setTooltipVisible] = useState({}); // Asegúrate de tener este estado definido
+  const videoRef = useRef(null);
 
   const fetchProyectos = async () => {
     try {
@@ -31,7 +34,7 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`https://backend-constructora.onrender.com/api/v1/videos/${id}/`);
-      setSelectedVideoId(id); // Almacena la ID del video eliminado
+      setSelectedVideoId(id);
       setShowDialog(true);
       setProyectos((prevProyectos) =>
         prevProyectos.filter((proyecto) => proyecto.id !== id)
@@ -43,24 +46,29 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
 
   const playVideo = (id) => {
     if (selectedVideoId === id && isPlaying) {
-      // Si se hace clic en el video que ya se está reproduciendo, pausarlo
       setIsPlaying(false);
       videoRef.current.pause();
     } else {
-      // Si se hace clic en un nuevo video, reproducirlo y actualizar el estado
       setIsPlaying(true);
       setSelectedVideoId(id);
     }
   };
 
+  const closeModal = () => {
+    setShowDialog(false);
+    setSelectedVideoId(null);
+  };
+
+  const toggleTooltip = (id) => {
+    setTooltipVisible((prevTooltipVisible) => ({
+      ...prevTooltipVisible,
+      [id]: !prevTooltipVisible[id],
+    }));
+  };
+
   useEffect(() => {
     fetchProyectos();
   }, [proyectoID, updateCounter1]);
-
-  const closeModal = () => {
-    setShowDialog(false);
-    setSelectedVideoId(null); // Restablece la ID del video seleccionado
-  };
 
   return (
     <div className="proyectos-container container-fluid">
@@ -75,14 +83,11 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
               ref={videoRef}
               controlsList="nodownload"
               controls
-              muted // Silencio por defecto
+              muted
               onPlay={() => playVideo(pkP.id)}
               onClick={() => playVideo(pkP.id)}
             >
-              <source
-                src={`${pkP.uploadedFile}`}
-                type="video/mp4"
-              />
+              <source src={`${pkP.uploadedFile}`} type="video/mp4" />
               Tu navegador no soporta el tag de video.
             </video>
             {role === "admin" && (
@@ -93,7 +98,7 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
                   id="dropdown-basic"
                 >
                   <img
-                    src={icon}
+                    src={info}
                     alt="Icon"
                     style={{ width: "25px", height: "25px" }}
                   />
@@ -105,7 +110,33 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
                 </Dropdown.Menu>
               </Dropdown>
             )}
-            
+
+            <OverlayTrigger
+              show={tooltipVisible[pkP.id]}
+              placement="top"
+              overlay={
+                <Tooltip id={`tooltip-${pkP.id}`}>
+                  {pkP.name}
+                </Tooltip>
+              }
+            >
+              <img
+                src={info}
+                alt="Información"
+                style={{
+                  width: "25px",
+                  height: "25px",
+                  cursor: "pointer",
+                  position: "absolute",
+                  bottom: "263px",
+                  right: "293px",
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleTooltip(pkP.id);
+                }}
+              />
+            </OverlayTrigger>
           </div>
         ))
       )}

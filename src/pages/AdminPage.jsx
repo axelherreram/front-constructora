@@ -482,7 +482,7 @@ const AdminPage = () => {
         </Modal.Body>
         <Modal.Footer className="CerrarButton">
           <Button variant="secondary" onClick={handleCloseModal}>
-            Cerrar
+            Cerrarr
           </Button>
         </Modal.Footer>
       </Modal>

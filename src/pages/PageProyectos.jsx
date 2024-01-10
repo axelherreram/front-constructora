@@ -81,22 +81,23 @@ const PageProyectos = (props) => {
 
   const handleGuardarProyecto = async () => {
     try {
+      setLoading(true); 
       // Validar campos
       if (!nombreProyecto) {
         setErrorArchivo("Nombre Proyecto Vacío");
         return;
       }
-  
+
       if (!nogProyecto) {
         setErrorArchivo("Nog Vacío");
         return;
       }
-  
+
       if (!fechaProyecto) {
         setErrorArchivo("No ha ingresado fecha");
         return;
       }
-  
+
       // Con bloque try-catch
       const endpoint =
         "https://backend-constructora.onrender.com/api/v1/projects/";
@@ -106,9 +107,9 @@ const PageProyectos = (props) => {
         date: fechaProyecto,
         munici_id: Muni_id,
       });
-  
+
       console.log("Respuesta completa del servidor:", response.data);
-  
+
       if (response.status === 201) {
         console.log("Proyecto creado exitosamente");
         setShowSuccessMessage(true);
@@ -119,12 +120,13 @@ const PageProyectos = (props) => {
           newArray.push(response.data);
           return newArray;
         });
-  
+
         // Limpiar mensajes de error y campos
         setErrorArchivo("");
         setNombreProyecto("");
         setNogProyecto("");
         setFechaProyecto("");
+        setLoading(false); 
         setShowModal(false);
       } else {
         // Manejar el error 400
@@ -133,8 +135,8 @@ const PageProyectos = (props) => {
           console.log(errorResponse.nog)
           if (errorResponse && errorResponse.nog && Array.isArray(errorResponse.nog)) {
             setErrorArchivo("Nog Vacío");
-          } 
-          
+          }
+
         } else {
           console.error(
             "Error al crear el proyecto. Estado de la respuesta:",
@@ -147,8 +149,8 @@ const PageProyectos = (props) => {
       setErrorArchivo("ocurrio un error, intentar de nuevo");
     }
   };
-  
-  
+
+
   const handleDelete = async (proyectoId) => {
     try {
       const response = await axios.delete(
@@ -348,11 +350,11 @@ const PageProyectos = (props) => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
+          <Button variant="secondary" onClick={handleCloseModal} disabled={loading}>
             Cerrar
           </Button>
-          <Button variant="primary" onClick={handleGuardarProyecto}>
-            Guardar
+          <Button variant="primary" onClick={handleGuardarProyecto} disabled={loading}>
+            {loading ? "Creando..." : "Guardar"}
           </Button>
         </Modal.Footer>
       </Modal>

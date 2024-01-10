@@ -15,6 +15,7 @@ import logo from "../assets/logo.svg";
 import icon from "../assets/icon.svg";
 import DialogModal from "../components/msgExito";
 import SuccessMessage from "../components/alert";
+const [loading, setLoading] = useState(false);
 
 const AdminPage = () => {
   const navigate = useNavigate();
@@ -94,6 +95,7 @@ const AdminPage = () => {
 
   const handleGuardarMuni = async () => {
     try {
+      setLoading(true);
       setErrorArchivo("");
 
       if (!nombreMuni) {
@@ -123,6 +125,7 @@ const AdminPage = () => {
         setSuccessMessage("Se ha creado la municipalidad exitosamente.");
         setShowSuccessMessage(true);
         setArchivoProyecto(null);
+        setLoading(false);
         setErrorArchivo("");
         setMunicipalidades((prevMunicipalidades) => [
           ...prevMunicipalidades,
@@ -146,6 +149,7 @@ const AdminPage = () => {
 
   const handleGuardarUser = async () => {
     try {
+      setLoading(true);
       setErrorArchivouser(""); // Limpiar el error general
       setErrorContrasena(""); // Limpiar el error específico de la contraseña
 
@@ -182,6 +186,7 @@ const AdminPage = () => {
         setNombreUsuario("");
         setContrasenaUsuario("");
         setSelectedMunicipio("");
+        setLoading(false);
         handleCloseModal();
       } else {
         console.error(
@@ -393,8 +398,9 @@ const AdminPage = () => {
                 variant="primary"
                 className="GuardarButtonRight mt-2"
                 onClick={handleGuardarMuni}
+                disabled={loading}
               >
-                Guardar
+                {loading ? "Creando Muni" : "Guardar"}
               </Button>
             </div>
           </div>
@@ -474,8 +480,9 @@ const AdminPage = () => {
                 variant="primary"
                 className="GuardarButtonRight mt-2"
                 onClick={handleGuardarUser}
+                disabled={loading}
               >
-                Guardar
+                {loading ? "Creando User" : "Guardar"}
               </Button>
             </div>
           </div>

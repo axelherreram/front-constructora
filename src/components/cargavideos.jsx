@@ -73,7 +73,7 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
               width="100%"
               height="auto"
               ref={videoRef}
-              controlsList="nodownload" 
+              controlsList="nodownload"
               controls
               muted // Silencio por defecto
               onPlay={() => playVideo(pkP.id)}
@@ -105,6 +105,32 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
                 </Dropdown.Menu>
               </Dropdown>
             )}
+            <OverlayTrigger
+              show={tooltipVisible[pkP.id]}
+              placement="top"
+              overlay={
+                <Tooltip id={`tooltip-${pkP.id}`}>
+                  {pkP.name}
+                </Tooltip>
+              }
+            >
+              <img
+                src={info}
+                alt="Información"
+                style={{
+                  width: "25px",
+                  height: "25px",
+                  cursor: "pointer",
+                  position: "absolute",
+                  bottom: "263px",
+                  right: "293px",
+                }}
+                onClick={(e) => {
+                  e.stopPropagation(); // Evitar que el clic en el ícono cierre el tooltip
+                  toggleTooltip(pkP.id);
+                }}
+              />
+            </OverlayTrigger>
           </div>
         ))
       )}

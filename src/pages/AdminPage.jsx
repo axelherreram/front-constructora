@@ -36,7 +36,8 @@ const AdminPage = () => {
   const role_id_fija = 3
   const [mostrarContrasena, setMostrarContrasena] = useState(false);
   const [errorContrasena, setErrorContrasena] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loadingMuni, setLoadingMuni] = useState(false);
+  const [loadingUser, setLoadingUser] = useState(false);
 
   useEffect(() => {
     if (!role || !usuario || !municipio) {
@@ -95,24 +96,24 @@ const AdminPage = () => {
 
   const handleGuardarMuni = async () => {
     try {
-      setLoading(true);
+      setLoadingMuni(true);
       setErrorArchivo("");
 
       if (!nombreMuni) {
         setErrorArchivo("Nombre de Municipalidad Vacío");
-        setLoading(false);
+        setLoadingMuni(false);
         return;
       }
 
       if (!archivoProyecto) {
         setErrorArchivo("No ha seleccionado ningún formato de imagen");
-        setLoading(false);
+        setLoadingMuni(false);
         return;
       }
 
       if (!isImageFile(archivoProyecto)) {
         setErrorArchivo("El formato seleccionado no es una imagen");
-        setLoading(false);
+        setLoadingMuni(false);
         return;
       }
 
@@ -127,7 +128,7 @@ const AdminPage = () => {
       if (response.status === 201) {
         setSuccessMessage("Se ha creado la municipalidad exitosamente.");
         setShowSuccessMessage(true);
-        setLoading(false);
+        setLoadingMuni(false);
         setArchivoProyecto(null);
         setErrorArchivo("");
         setMunicipalidades((prevMunicipalidades) => [
@@ -147,28 +148,31 @@ const AdminPage = () => {
     } catch (error) {
       console.error("Error en la solicitud POST:", error.message);
       setErrorArchivo("Error Al crear la Municipalidad");
-      setLoading(false);
+      setLoadingMuni(false);
     }
   };
 
   const handleGuardarUser = async () => {
     try {
-      setLoading(true);
+      setLoadingUser(true);
       setErrorArchivouser(""); // Limpiar el error general
       setErrorContrasena(""); // Limpiar el error específico de la contraseña
 
       if (!nombreUsuario.trim()) {
         setErrorArchivouser("Campo Nombre Vacío");
+        setLoadingUser(false);
         return;
       }
 
       if (contrasenaUsuario.length < 8) {
         setErrorContrasena("Contraseña es menor a 8 dígitos");
+        setLoadingUser(false);
         return;
       }
 
       if (!selectedMunicipioId) {
         setErrorArchivouser("No hay seleccionada una municipalidad");
+        setLoadingUser(false);
         return;
       }
 
@@ -202,7 +206,7 @@ const AdminPage = () => {
         );
       }
     } catch (error) {
-      setLoading(false);
+      setLoadingUser(false);
       if (
         error.response &&
         error.response.status === 400 &&
@@ -213,12 +217,14 @@ const AdminPage = () => {
           error.response.data.username.includes("Usuario ya existe")
         ) {
           setErrorArchivouser("Usuario ya existe");
+          setLoadingUser(false);
         } else {
           setErrorArchivouser("Usuario ya existe");
+          setLoadingUser(false);
         }
       } else {
         setErrorArchivouser(`Error en la solicitud POST: ${error.message}`);
-        setLoading(false);
+        setLoadingUser(false);
       }
     }
   };
@@ -404,9 +410,9 @@ const AdminPage = () => {
                 variant="primary"
                 className="GuardarButtonRight mt-2"
                 onClick={handleGuardarMuni}
-                disabled={loading}
+                disabled={loadingMuni}
               >
-                {loading ? "Creando Muni" : "Guardar"}
+                {loadingMuni ? "Creando Muni" : "Guardar"}
               </Button>
             </div>
           </div>
@@ -486,9 +492,9 @@ const AdminPage = () => {
                 variant="primary"
                 className="GuardarButtonRight mt-2"
                 onClick={handleGuardarUser}
-                disabled={loading}
+                disabled={loadingUser}
               >
-                {loading ? "Creando User" : "Guardar"}
+                {loadingUser ? "Creando User" : "Guardar"}
               </Button>
             </div>
           </div>

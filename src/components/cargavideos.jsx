@@ -12,7 +12,7 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
   const [showDialog, setShowDialog] = useState(false);
   const [selectedVideoId, setSelectedVideoId] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [tooltipVisible, setTooltipVisible] = useState({}); // Asegúrate de tener este estado definido
+  const [tooltipVisible, setTooltipVisible] = useState({});
   const videoRef = useRef(null);
 
   const fetchProyectos = async () => {
@@ -70,6 +70,20 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
   useEffect(() => {
     fetchProyectos();
   }, [proyectoID, updateCounter1]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest(".tooltip")) {
+        setTooltipVisible({});
+      }
+    };
+
+    document.body.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="proyectos-container container-fluid">
@@ -133,7 +147,7 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
                   right: "293px",
                 }}
                 onClick={(e) => {
-                  e.stopPropagation(); // Evitar que el clic en el ícono cierre el tooltip
+                  e.stopPropagation();
                   toggleTooltip(pkP.id);
                 }}
               />

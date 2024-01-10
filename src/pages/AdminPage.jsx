@@ -100,16 +100,19 @@ const AdminPage = () => {
 
       if (!nombreMuni) {
         setErrorArchivo("Nombre de Municipalidad Vacío");
+        setLoading(false);
         return;
       }
 
       if (!archivoProyecto) {
         setErrorArchivo("No ha seleccionado ningún formato de imagen");
+        setLoading(false);
         return;
       }
 
       if (!isImageFile(archivoProyecto)) {
         setErrorArchivo("El formato seleccionado no es una imagen");
+        setLoading(false);
         return;
       }
 

@@ -15,7 +15,6 @@ import logo from "../assets/logo.svg";
 import icon from "../assets/icon.svg";
 import DialogModal from "../components/msgExito";
 import SuccessMessage from "../components/alert";
-const [loading, setLoading] = useState(false);
 
 const AdminPage = () => {
   const navigate = useNavigate();
@@ -34,9 +33,10 @@ const AdminPage = () => {
   const [showDialog, setShowDialog] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
-  const role_id_fija = 3
+  const role_id_fija = 2
   const [mostrarContrasena, setMostrarContrasena] = useState(false);
   const [errorContrasena, setErrorContrasena] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!role || !usuario || !municipio) {
@@ -44,8 +44,7 @@ const AdminPage = () => {
     }
     const fetchMunicipalidades = async () => {
       try {
-        const endPoint =
-          "https://backend-constructora.onrender.com/api/v1/municipalidades/";
+        const endPoint = "https://backend-constructora.onrender.com/api/v1/municipalidades/";
         const response = await axios.get(endPoint);
         setMunicipalidades(response.data);
       } catch (error) {
@@ -71,6 +70,7 @@ const AdminPage = () => {
     setErrorContrasena("");
     setSelectedMunicipio("");
   };
+  
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -97,116 +97,101 @@ const AdminPage = () => {
     try {
       setLoading(true);
       setErrorArchivo("");
-
+  
       if (!nombreMuni) {
         setErrorArchivo("Nombre de Municipalidad Vacío");
         return;
       }
-
+  
       if (!archivoProyecto) {
         setErrorArchivo("No ha seleccionado ningún formato de imagen");
         return;
       }
-
+  
       if (!isImageFile(archivoProyecto)) {
         setErrorArchivo("El formato seleccionado no es una imagen");
         return;
       }
-
+  
       const formData = new FormData();
       formData.append("name", nombreMuni);
       formData.append("uploadedFile", archivoProyecto);
-
-      const endPoint =
-        "https://backend-constructora.onrender.com/api/v1/municipalidades/";
+  
+      const endPoint =  "https://backend-constructora.onrender.com/api/v1/municipalidades/";
       const response = await axios.post(endPoint, formData);
-
+  
       if (response.status === 201) {
         setSuccessMessage("Se ha creado la municipalidad exitosamente.");
         setShowSuccessMessage(true);
-        setArchivoProyecto(null);
         setLoading(false);
+        setArchivoProyecto(null);
         setErrorArchivo("");
         setMunicipalidades((prevMunicipalidades) => [
           ...prevMunicipalidades,
           response.data,
         ]);
-
+  
         setNombreMuni("");
         handleCloseModal();
       } else {
-        console.error(
-          "Error al crear la municipalidad. Estado de la respuesta:",
-          response.status
-        );
+        console.error("Error al crear la municipalidad. Estado de la respuesta:", response.status);
         setErrorArchivo("Error al crear la municipalidad");
       }
     } catch (error) {
       console.error("Error en la solicitud POST:", error.message);
-      setErrorArchivo("Error Al crear la Municipalidad");
+      setErrorArchivo("Error en la solicitud POST");
     }
   };
+  
 
   const handleGuardarUser = async () => {
     try {
       setLoading(true);
       setErrorArchivouser(""); // Limpiar el error general
       setErrorContrasena(""); // Limpiar el error específico de la contraseña
-
+  
       if (!nombreUsuario.trim()) {
         setErrorArchivouser("Campo Nombre Vacío");
         return;
       }
-
+  
       if (contrasenaUsuario.length < 8) {
         setErrorContrasena("Contraseña es menor a 8 dígitos");
         return;
       }
-
+  
       if (!selectedMunicipioId) {
         setErrorArchivouser("No hay seleccionada una municipalidad");
         return;
       }
-
-      const endPoint =
-        "https://backend-constructora.onrender.com/api/register/";
-
+  
+      const endPoint = "https://backend-constructora.onrender.com/api/register/";
+  
       const postData = {
         username: nombreUsuario,
         password: contrasenaUsuario,
         munici_id: selectedMunicipioId,
         role_id: role_id_fija,
       };
+  
       const response = await axios.post(endPoint, postData);
-
+  
       if (response.status === 201) {
         setSuccessMessage("Se ha creado el usuario exitosamente.");
         setShowSuccessMessage(true);
-
+  
         setNombreUsuario("");
         setContrasenaUsuario("");
         setSelectedMunicipio("");
         setLoading(false);
         handleCloseModal();
       } else {
-        console.error(
-          "Error al crear el usuario. Estado de la respuesta:",
-          response.status
-        );
-        setErrorArchivouser(
-          `Error al crear el usuario. Estado de la respuesta: ${response.status}`
-        );
+        console.error("Error al crear el usuario. Estado de la respuesta:", response.status);
+        setErrorArchivouser(`Error al crear el usuario. Estado de la respuesta: ${response.status}`);
       }
     } catch (error) {
-      if (
-        error.response &&
-        error.response.status === 400 &&
-        error.response.data
-      ) {
-        if (
-          error.response.data.username &&
-          error.response.data.username.includes("Usuario ya existe")
-        ) {
+      if (error.response && error.response.status === 400 && error.response.data) {
+        if (error.response.data.username && error.response.data.username.includes("Usuario ya existe")) {
           setErrorArchivouser("Usuario ya existe");
         } else {
           setErrorArchivouser("Usuario ya existe");
@@ -216,6 +201,7 @@ const AdminPage = () => {
       }
     }
   };
+  
 
   const handleCerrarSesion = async () => {
     try {
@@ -231,20 +217,14 @@ const AdminPage = () => {
 
   const handleDelete = async (municipioId) => {
     try {
-      const response = await axios.delete(
-        `https://backend-constructora.onrender.com/api/v1/municipalidades/${municipioId}/`
-      );
+      const response = await axios.delete(`https://backend-constructora.onrender.com/api/v1/municipalidades/${municipioId}/`);
 
       if (response.status === 204) {
         setSelectedMunicipioId(municipioId);
         setShowDialog(true);
-        setMunicipalidades((prevMunicipalidades) =>
-          prevMunicipalidades.filter((muni) => muni.munici_id !== municipioId)
-        );
+        setMunicipalidades((prevMunicipalidades) => prevMunicipalidades.filter((muni) => muni.munici_id !== municipioId));
       } else {
-        console.error(
-          `Error al eliminar el municipio. Estado de la respuesta: ${response.status}`
-        );
+        console.error(`Error al eliminar el municipio. Estado de la respuesta: ${response.status}`);
       }
     } catch (error) {
       console.error("Error en la solicitud DELETE:", error.message);
@@ -309,7 +289,11 @@ const AdminPage = () => {
                     >
                       <img
                         className="img"
-                        src={muni.uploadedFile}
+                        src={
+                          muni.uploadedFile === "http://localhost:8000/media/NULL"
+                            ? logo
+                            : muni.uploadedFile
+                        }
                         alt="img_muni"
                       />
                       <p style={{ margin: "0px" }}>{muni.name}</p>
@@ -473,9 +457,7 @@ const AdminPage = () => {
               {errorArchivouser && (
                 <p className="error-message">{errorArchivouser}</p>
               )}
-              {errorContrasena && (
-                <p className="error-message">{errorContrasena}</p>
-              )}
+              {errorContrasena && <p className="error-message">{errorContrasena}</p>}
               <Button
                 variant="primary"
                 className="GuardarButtonRight mt-2"

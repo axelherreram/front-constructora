@@ -25,9 +25,8 @@ const PageFYV = (props) => {
   const [updateCounter, setUpdateCounter] = useState(0);
   const [updateCounter1, setUpdateCounter1] = useState(0);
   const [error, setError] = useState("");
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.title = `Proyectos en ${municipio}`;
@@ -48,10 +47,8 @@ const PageFYV = (props) => {
       const endpoint = "https://backend-constructora.onrender.com/api/logout/";
       await axios.post(endpoint);
 
-      // Elimina solo la clave relacionada con la sesión
       localStorage.removeItem("isLoggedIn");
 
-      // Puedes ajustar la ruta según tus necesidades
       navigate("/");
     } catch (error) {
       console.error("Error al cerrar sesión:", error.message);
@@ -75,24 +72,16 @@ const PageFYV = (props) => {
       formData.append("name", archivoProyecto.name);
       formData.append("uploadedFile", archivoProyecto);
 
-      // Validar el tipo de archivo antes de realizar la solicitud POST
-      if (
-        (tipoArchivo === "Fotos" && isImageFile(archivoProyecto)) ||
-        (tipoArchivo === "Videos" && isVideoFile(archivoProyecto))
-      ) {
-        setIsLoading(true);
+      if ((tipoArchivo === "Fotos" && isImageFile(archivoProyecto)) || (tipoArchivo === "Videos" && isVideoFile(archivoProyecto))) {
         const response = await axios.post(endpoint, formData);
         if (response.status === 201) {
-          console.log(
-            `Archivo de ${tipoArchivo.toLowerCase()} creado exitosamente`
-          );
           if (tipoArchivo === "Fotos") {
             setUpdateCounter((prevCounter) => prevCounter + 1);
           } else if (tipoArchivo === "Videos") {
             setUpdateCounter1((prevCounter1) => prevCounter1 + 1);
           }
-          setError(""); // Limpiar el mensaje de error si no hay error
-          setShowModal(false); // Cerrar el modal solo si no hay error
+          setError("");
+          setShowModal(false);
         } else {
           console.error(
             `Error al crear el archivo de ${tipoArchivo.toLowerCase()}. Estado de la respuesta:`,
@@ -115,7 +104,6 @@ const PageFYV = (props) => {
       console.error(`Error en la solicitud POST:`, error.message);
       setError("Formato Inválido ");
     } finally {
-      setIsLoading(false);
       setLoading(false);
       setTipoProyecto(tipoArchivo);
       setArchivoProyecto(null);
@@ -123,11 +111,11 @@ const PageFYV = (props) => {
   };
 
   const isImageFile = (file) => {
-    return file.type.startsWith("image/");
+    return file.type.startsWith('image/');
   };
 
   const isVideoFile = (file) => {
-    return file.type.startsWith("video/");
+    return file.type.startsWith('video/');
   };
 
   return (
@@ -146,20 +134,16 @@ const PageFYV = (props) => {
           <Navbar.Collapse className="justify-content-end">
             <Nav className="me-auto">
               <NavDropdown title="Información" id="basic-nav-dropdown">
-                <NavDropdown.Item>
-                  Proyecto:{"  "}
+                <NavDropdown.Item>Proyecto:{"  "}
                   <span className="fw-bold">{proyecto}</span>
                 </NavDropdown.Item>
-                <NavDropdown.Item>
-                  NOG:{"  "}
+                <NavDropdown.Item>NOG:{"  "}
                   <span className="fw-bold">{nog}</span>
                 </NavDropdown.Item>
-                <NavDropdown.Item>
-                  Municipio:{"  "}
+                <NavDropdown.Item>Municipio:{"  "}
                   <span className="fw-bold text-capitalize">{municipio}</span>
                 </NavDropdown.Item>
-                <NavDropdown.Item>
-                  Usuario: {"  "}
+                <NavDropdown.Item>Usuario: {"  "}
                   <span className="fw-bold text-capitalize">{usuario}</span>
                 </NavDropdown.Item>
               </NavDropdown>
@@ -184,7 +168,6 @@ const PageFYV = (props) => {
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
-
             <div className="d-flex justify-content-around ">
               {role === "admin" && (
                 <Button
@@ -195,7 +178,6 @@ const PageFYV = (props) => {
                   Agregar
                 </Button>
               )}
-
               <Button type="submit border" onClick={handleCerrarSesion}>
                 Cerrar sesion
               </Button>
@@ -217,13 +199,11 @@ const PageFYV = (props) => {
           />
         )}
         {tipoArchivo === "Fotos" && (
-          <>
-            <ComponenteB
-              proyectoID={proyectoID}
-              updateCounter={updateCounter}
-              role={role}
-            />
-          </>
+          <ComponenteB
+            proyectoID={proyectoID}
+            updateCounter={updateCounter}
+            role={role}
+          />
         )}
       </div>
 
@@ -258,14 +238,6 @@ const PageFYV = (props) => {
               />
             </div>
             {error && <p className="error-message">{error}</p>}
-            {isLoading && (
-              <div className="loading-container">
-                <div className="spinner-border text-primary" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </div>
-                <p className="loading-text">Subiendo...</p>
-              </div>
-            )}
           </div>
         </Modal.Body>
         <Modal.Footer>

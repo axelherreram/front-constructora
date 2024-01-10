@@ -30,6 +30,7 @@ const PageProyectos = (props) => {
   const [selectedProjectId, setSelectedProjectId] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [errorArchivo, setErrorArchivo] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,12 +40,7 @@ const PageProyectos = (props) => {
 
   const handleOpenModal = () => {
     setShowModal(true);
-    setErrorArchivo("");
-    setNombreProyecto("");
-    setNogProyecto("");
-    setFechaProyecto("");
   };
-
   const fetchProyectos = async () => {
     try {
       const endPoint =
@@ -65,10 +61,10 @@ const PageProyectos = (props) => {
     try {
       const endpoint = "https://backend-constructora.onrender.com/api/logout/";
       await axios.post(endpoint);
-
+  
       // Elimina solo la clave relacionada con la sesión
       localStorage.removeItem("isLoggedIn");
-
+  
       // Espera un breve momento antes de redirigir
       setTimeout(() => {
         // Puedes ajustar la ruta según tus necesidades
@@ -79,9 +75,10 @@ const PageProyectos = (props) => {
     }
   };
 
+
   const handleGuardarProyecto = async () => {
     try {
-      setLoading(true); 
+      setLoading(true);
       // Validar campos
       if (!nombreProyecto) {
         setErrorArchivo("Nombre Proyecto Vacío");
@@ -98,17 +95,13 @@ const PageProyectos = (props) => {
         return;
       }
 
-      // Con bloque try-catch
-      const endpoint =
-        "https://backend-constructora.onrender.com/api/v1/projects/";
+      const endpoint = "https://backend-constructora.onrender.com/api/v1/projects/";
       const response = await axios.post(endpoint, {
         name: nombreProyecto,
         nog: nogProyecto,
         date: fechaProyecto,
         munici_id: Muni_id,
       });
-
-      console.log("Respuesta completa del servidor:", response.data);
 
       if (response.status === 201) {
         console.log("Proyecto creado exitosamente");
@@ -126,30 +119,20 @@ const PageProyectos = (props) => {
         setNombreProyecto("");
         setNogProyecto("");
         setFechaProyecto("");
-        setLoading(false); 
         setShowModal(false);
       } else {
-        // Manejar el error 400
-        if (response.status === 400) {
-          const errorResponse = response.data;
-          console.log(errorResponse.nog)
-          if (errorResponse && errorResponse.nog && Array.isArray(errorResponse.nog)) {
-            setErrorArchivo("Nog Vacío");
-          }
-
-        } else {
-          console.error(
-            "Error al crear el proyecto. Estado de la respuesta:",
-            response.data.nog
-          );
-        }
+        console.error(
+          "Error al crear el proyecto. Estado de la respuesta:",
+          response.status
+        );
       }
     } catch (error) {
       console.error("Error en la solicitud POST:", error.message);
-      setErrorArchivo("ocurrio un error, intentar de nuevo");
+    } finally {
+      setLoading(false); 
+
     }
   };
-
 
   const handleDelete = async (proyectoId) => {
     try {
@@ -251,7 +234,9 @@ const PageProyectos = (props) => {
                     <p className="item-pro">Fecha: {proyecto.date}</p>
                   </div>
                   {role === "admin" && (
-                    <Dropdown className="Dropdown-pro">
+                    <Dropdown 
+                    className="Dropdown-pro"
+                    >
                       <Dropdown.Toggle
                         className="btn-sm dropdown-toggle"
                         variant="light"
@@ -350,13 +335,13 @@ const PageProyectos = (props) => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal} disabled={loading}>
-            Cerrar
-          </Button>
-          <Button variant="primary" onClick={handleGuardarProyecto} disabled={loading}>
-            {loading ? "Creando..." : "Guardar"}
-          </Button>
-        </Modal.Footer>
+        <Button variant="secondary" onClick={handleCloseModal} disabled={loading}>
+          Cerrar
+        </Button>
+        <Button variant="primary" onClick={handleGuardarProyecto} disabled={loading}>
+          {loading ? "Creando..." : "Guardar"}
+        </Button>
+      </Modal.Footer>
       </Modal>
     </>
   );

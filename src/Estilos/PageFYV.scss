@@ -219,3 +219,20 @@ $color-link-hover: black;
 .modal-backdrop.show {
   opacity: 0.5; /* Opacidad del fondo oscuro */
 }
+
+.error-message {
+  color: red;
+  font-weight: 600;
+  font-size: 17px;
+}
+
+/* Agrega estas reglas de estilo para dispositivos con un ancho de pantalla de 768px o menos */
+@media (max-width: 768px) {
+  .card img {
+    width: 20px;
+    height: 20px;
+    /* Ajusta la posición del ícono para dispositivos más pequeños si es necesario */
+    bottom: 2%;
+    right: 2%;
+  }
+}

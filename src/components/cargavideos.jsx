@@ -6,6 +6,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 import icon from "../assets/icon.svg";
 import info from "../assets/info-circle.svg";
 import DialogModal from "./msgExito";
+import "../Estilos/PageFYV.scss";
 
 const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
   const [proyectos, setProyectos] = useState([]);
@@ -143,8 +144,8 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
                   height: "25px",
                   cursor: "pointer",
                   position: "absolute",
-                  bottom: "263px",
-                  right: "293px",
+                  bottom: "89%", 
+                  right: "89%",
                 }}
                 onClick={(e) => {
                   e.stopPropagation();

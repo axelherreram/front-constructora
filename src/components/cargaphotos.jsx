@@ -42,7 +42,7 @@ const ComponenteB = ({ proyectoID, updateCounter, role }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/photos/${id}/`);
+      await axios.delete(`https://backend-constructora.onrender.com/api/v1/photos/${id}/`);
       console.log(`Foto con ID ${id} eliminada exitosamente.`);
       setSelectedImage(null);
       setSelectedImgID(id);

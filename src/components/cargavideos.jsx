@@ -53,14 +53,27 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
     } else {
       setIsPlaying(true);
       setSelectedVideoId(id);
+      setProyectos((prevProyectos) =>
+        prevProyectos.map((proyecto) => {
+          if (proyecto.id === id) {
+            return {
+              ...proyecto,
+              playing: true,
+            };
+          } else {
+            return {
+              ...proyecto,
+              playing: false,
+            };
+          }
+        })
+      );
     }
   };
-
   const closeModal = () => {
     setShowDialog(false);
     setSelectedVideoId(null);
   };
-
   const toggleTooltip = (id) => {
     setTooltipVisible((prevTooltipVisible) => ({
       ...prevTooltipVisible,
@@ -93,19 +106,19 @@ const ComponenteA = ({ proyectoID, updateCounter1, role }) => {
       ) : (
         proyectos.map((pkP) => (
           <div key={pkP.id} className="card">
-            <video
+            <iframe
               width="100%"
               height="auto"
               ref={videoRef}
               controlsList="nodownload"
+              src={pkP.url}
               controls
               muted
               onPlay={() => playVideo(pkP.id)}
               onClick={() => playVideo(pkP.id)}
             >
-              <source src={`${pkP.uploadedFile}`} type="video/mp4" />
-              Tu navegador no soporta el tag de video.
-            </video>
+              
+            </iframe>
             {role === "admin" && (
               <Dropdown className="Dropdown-videos">
                 <Dropdown.Toggle

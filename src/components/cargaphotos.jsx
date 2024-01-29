@@ -23,7 +23,7 @@ const ComponenteB = ({ proyectoID, updateCounter, role }) => {
 
   const fetchProyectos = async () => {
     try {
-      const archivosEndpoint = `http://localhost:8000/api/proyectosfp/${proyectoID}`;
+      const archivosEndpoint = `https://backend-constructora.onrender.com/api/proyectosfp/${proyectoID}`;
       const archivosResponse = await axios.get(archivosEndpoint);
       const archivos = archivosResponse.data;
       console.log(archivos);

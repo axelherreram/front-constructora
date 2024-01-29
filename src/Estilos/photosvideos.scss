@@ -3,6 +3,55 @@
   flex-wrap: wrap;
   justify-content: space-around;
 }
+.card-photos {
+  align-items: center;
+  width: 70%;
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+.content-photos {
+  display: flex;
+  align-items: center;
+  width: 80%;
+}
+.container-img {
+  display: flex;
+  align-items: center;
+  width: 100px;
+  height: 72px;
+}
+.container-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.content-photos span {
+  text-align: start;
+  width: 100%;
+  margin-left: 30px;
+  color: black;
+}
+
+@media (max-width: 450px) {
+  .card-photos {
+    width: 100%;
+  }
+  .content-photos {
+    width: 100%;
+  }
+
+  .card-photos img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card-photos span {
+    margin-left: 10px;
+    font-size: 16px;
+  }
+}
 
 .card {
   width: 330px;
@@ -11,11 +60,8 @@
   border: 1px solid #ccc;
   padding: 5px;
   display: flex;
-  /* Añadir display flex */
   align-items: center;
-  /* Centrar verticalmente */
   position: relative;
-  /* Añadir posición relativa para posicionar el menú */
 }
 
 @media (max-width: 376px) {
@@ -51,10 +97,9 @@
   /* La imagen se ajusta manteniendo las proporciones y recortando si es necesario */
 }
 
-.dropdown-basic-button {
+.dropdown-toggle {
   background: white;
 }
-
 
 @media only screen and (min-width: 515px) {
   .dropdown {
@@ -64,22 +109,22 @@
   }
 }
 
-.Dropdown-fotos {
-  position: absolute;
-  margin: 10px;
-}
+// .Dropdown-fotos {
+//   position: absolute;
+//   margin: 10px;
+// }
 
 .dropdown-toggle {
   border: none;
 }
 
-.proyectos-container .Dropdown-fotos {
-  position: absolute;
-  bottom: 5px;
-  right: 42px;
-  margin: 10px;
-  width: 20px;
-}
+// .proyectos-container .Dropdown-fotos {
+//   position: absolute;
+//   bottom: 5px;
+//   right: 42px;
+//   margin: 10px;
+//   width: 20px;
+// }
 
 .Dropdown-videos {
   position: absolute;
